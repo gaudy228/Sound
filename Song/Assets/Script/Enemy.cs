@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private GameObject player;
+    private PlayerHP playerHP;
+    [SerializeField] private float speed;
+    [SerializeField] private float damage;
+    private AudioSource deadEnemy;
     void Start()
     {
-        
+        player = GameObject.FindWithTag("Player");
+        playerHP = GameObject.FindWithTag("DeadPlayer").GetComponent<PlayerHP>();
+        deadEnemy = GameObject.FindWithTag("DeadEnemy").GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        
+        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("DeadPlayer"))
+        {
+            playerHP.TakeDamage(damage);
+            deadEnemy.Play();
+            Destroy(gameObject);
+        }
     }
 }

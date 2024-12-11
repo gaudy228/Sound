@@ -7,7 +7,7 @@ public class Gan : MonoBehaviour
     [SerializeField] private GameObject bullet;
     [SerializeField] private float offset;
     [SerializeField] private float KD;
-    [SerializeField] private bool inKD = true;
+    private bool inKD = true;
 
     [SerializeField] private AudioSource shootSourse;
     
@@ -17,7 +17,7 @@ public class Gan : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;

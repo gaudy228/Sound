@@ -9,27 +9,31 @@ public class PlayerHP : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI HP;
     [SerializeField] private int hp;
+    [SerializeField] private GameObject Panel;
     void Start()
     {
-        
+        Time.timeScale = 1.0f;  
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         if (hp <= 0)
         {
-            SceneManager.LoadScene(0);
+            Panel.SetActive(true);
+            Time.timeScale = 0;
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void TakeDamage(float damage)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            hp--;
-            HP.text = hp.ToString();
-            Destroy(collision.gameObject);
-        }
+        hp--;
+        HP.text = hp.ToString();
+
     }
+   
+    public void ReStart()
+    {
+        SceneManager.LoadScene(0);
+    }
+    
 }
